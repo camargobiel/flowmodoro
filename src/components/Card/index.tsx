@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, ButtonGroup, Timer } from ".."
 import { useTimer } from "../../hooks";
 import { secondsToHourString } from "../../utils";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { PauseIcon, PlayIcon, TvIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const TEN_PERCENT = 0.1;
 
@@ -26,6 +26,19 @@ export const Card = () => {
       return "border-indigo-600";
     }
     return "border-gray-900";
+  })()
+
+  const Icon = (() => {
+    if (paused) {
+      return PauseIcon;
+    }
+    if (resting) {
+      return TvIcon;
+    }
+    if (remaining.running) {
+      return PlayIcon;
+    }
+    return undefined;
   })()
 
   useEffect(() => {
@@ -75,6 +88,15 @@ export const Card = () => {
           <div className={
             `text-white flex flex-col justify-end relative items-center mt-44 gap-10 p-10 bg-gray-900 w-96 border rounded-xl ${borderColor} h-72 transition-all`
           }>
+            {Icon && <div className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer hover:bg-gray-800 rounded-full p-2">
+              <Icon
+                width={20}
+                onClick={() => {
+                  reset();
+                  setRestTime(0);
+                }}
+              />
+            </div>}
             <Timer seconds={seconds} />
             <ButtonGroup
               {...remaining}
