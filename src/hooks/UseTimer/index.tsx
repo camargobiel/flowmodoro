@@ -60,6 +60,7 @@ export const useTimer = ({
     setRunning(false);
     setDates(undefined);
     setResting(false);
+    document.title = `Flowmodoro`;
   };
   const stop = () => {
     setDates({

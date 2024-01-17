@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Timer } from ".."
+import { Button, ButtonGroup, CardBase, Timer } from ".."
 import { useTimer } from "../../hooks";
 import { secondsToHourString } from "../../utils";
 import { PauseIcon, PlayIcon, TvIcon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -55,9 +55,7 @@ export const Card = () => {
     <div className='flex items-center justify-center'>
       {
         restTime > 0 ? (
-          <div className={
-            `text-white flex flex-col justify-start text-start relative mt-44 gap-4 p-10 bg-gray-900 w-96 border rounded-xl ${borderColor} h-72 transition-all`
-          }>
+          <CardBase className="justify-start text-start gap-4" borderColor={borderColor}>
             <h1 className="font-semibold text-3xl">Parabéns!</h1>
             <div className="flex flex-col gap-1">
               <span className="font-medium text-lg">Tempo focado: <span className="text-purple-500">{secondsToHourString(seconds)}</span> </span>
@@ -83,11 +81,9 @@ export const Card = () => {
             >
               Aplicar descanso
             </Button>
-          </div>
+          </CardBase>
         ): (
-          <div className={
-            `text-white flex flex-col justify-end relative items-center mt-44 gap-10 p-10 bg-gray-900 w-96 border rounded-xl ${borderColor} h-72 transition-all`
-          }>
+          <CardBase className="justify-end items-center gap-10" borderColor={borderColor}>
             {Icon && <div className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer hover:bg-gray-800 rounded-full p-2">
               <Icon
                 width={20}
@@ -103,7 +99,7 @@ export const Card = () => {
               reset={reset}
               seconds={seconds}
             />
-          </div>
+          </CardBase>
         )
       }
     </div>
