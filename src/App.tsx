@@ -1,12 +1,12 @@
 import './App.css'
-import { Header, Card } from './components';
+import { Content, Header } from './components';
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
-      <Card />
-    </div>
+      <Content />
+    </>
   )
 }
 
