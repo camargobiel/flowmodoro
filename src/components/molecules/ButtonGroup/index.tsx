@@ -1,23 +1,18 @@
 import { Button } from "@/components/atoms"
+import { TimerContext } from "@/context";
 import { PlayIcon, PauseIcon, CakeIcon, StopIcon } from '@heroicons/react/24/solid'
+import { useContext } from "react";
 
-type ButtonGroupProps = {
-  start: () => void;
-  stop: () => void;
-  pause: () => void;
-  reset: () => void;
-  running: boolean;
-  seconds: number;
-}
+export const ButtonGroup = () => {
+  const {
+    running,
+    seconds,
+    pause,
+    stop,
+    start,
+    reset,
+  } = useContext(TimerContext);
 
-export const ButtonGroup = ({
-  start,
-  stop,
-  pause,
-  reset,
-  running,
-  seconds
-}: ButtonGroupProps) => {
   return (
     <div className='flex gap-5'>
       {!running ? (

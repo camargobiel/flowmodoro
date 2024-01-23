@@ -1,3 +1,5 @@
 export * from './ButtonGroup'
 export * from './Card'
 export * from './Header'
+export * from './FinishCard'
+export * from './TimerCard'

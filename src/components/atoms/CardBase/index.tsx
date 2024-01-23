@@ -1,6 +1,6 @@
 interface CardBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
-  borderColor: string
+  borderColor?: string
 }
 
 export const CardBase = ({ children, borderColor, className, ...rest }: CardBaseProps) => {
