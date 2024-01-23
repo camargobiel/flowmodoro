@@ -1,4 +1,4 @@
-import { formatSeconds } from "../../utils";
+import { formatSeconds } from "@/utils";
 
 type TimerProps = {
   seconds: number;

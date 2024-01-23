@@ -1,4 +1,4 @@
-import { Button } from ".."
+import { Button } from "@/components/atoms"
 import { PlayIcon, PauseIcon, CakeIcon, StopIcon } from '@heroicons/react/24/solid'
 
 type ButtonGroupProps = {

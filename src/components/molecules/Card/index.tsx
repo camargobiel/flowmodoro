@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, CardBase, Timer } from ".."
-import { useTimer } from "../../hooks";
-import { secondsToHourString } from "../../utils";
 import { PauseIcon, PlayIcon, TvIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Button, ButtonGroup, CardBase, Timer } from "@/components";
+import { useTimer } from "@/hooks";
+import { secondsToHourString } from "@/utils";
 
 const TEN_PERCENT = 0.1;
 
@@ -84,15 +84,13 @@ export const Card = () => {
           </CardBase>
         ): (
           <CardBase className="justify-end items-center gap-10" borderColor={borderColor}>
-            {Icon && <div className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer hover:bg-gray-800 rounded-full p-2">
-              <Icon
-                width={20}
-                onClick={() => {
-                  reset();
-                  setRestTime(0);
-                }}
-              />
-            </div>}
+            {Icon && (
+              <div className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer hover:bg-gray-800 rounded-full p-2 flex gap-2">
+                <Icon
+                  width={20}
+                />
+              </div>
+            )}
             <Timer seconds={seconds} />
             <ButtonGroup
               {...remaining}
