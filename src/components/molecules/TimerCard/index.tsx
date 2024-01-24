@@ -9,24 +9,7 @@ export const TimerCard = () => {
     paused,
     resting,
     seconds,
-    dates,
   } = useContext(TimerContext);
-
-  const borderColor = (() => {
-    if (dates?.stoppedAt) {
-      return "border-pink-600";
-    }
-    if (paused) {
-      return "border-pink-600";
-    }
-    if (resting) {
-      return "border-emerald-600";
-    }
-    if (running) {
-      return "border-indigo-600";
-    }
-    return "border-gray-900";
-  })()
 
   const Icon = (() => {
     if (paused) {
@@ -42,7 +25,7 @@ export const TimerCard = () => {
   })()
 
   return (
-    <CardBase className="justify-end items-center gap-10" borderColor={borderColor}>
+    <CardBase className="justify-end items-center gap-10">
       {Icon && (
         <div className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer hover:bg-gray-800 rounded-full p-2 flex gap-2">
           <Icon

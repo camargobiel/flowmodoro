@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { formatSeconds } from "../../utils";
+import { UseTimerProps, UseTimerResult } from "./types";
+
+const ONE_SECOND = 1000;
 
 const interval = (delay = 0) => (callback: TimerHandler) =>
   useEffect(() => {
@@ -7,35 +10,18 @@ const interval = (delay = 0) => (callback: TimerHandler) =>
     return () => clearInterval(id);
   }, [callback]);
 
-const useSecondsInterval = interval(1000);
-
-export type UseTimerProps = {
-  initialSeconds?: number;
-  initiallyRunning?: boolean;
-}
-
-export type UseTimerResult = {
-  running: boolean;
-  seconds: number;
-  paused: boolean;
-  dates: Record<string, Date> | undefined;
-  resting: boolean;
-  pause: () => void;
-  reset: () => void;
-  start: (initial?: number) => void;
-  stop: () => void;
-  stopResting: () => void;
-}
+const useSecondsInterval = interval(ONE_SECOND);
 
 export const useTimer = ({
   initialSeconds = 0,
   initiallyRunning = false
 }: UseTimerProps = {}): UseTimerResult => {
-  const [seconds, setSeconds] = useState(initialSeconds);
-  const [running, setRunning] = useState(initiallyRunning);
-  const [resting, setResting] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const [seconds, setSeconds] = useState<number>(initialSeconds);
+  const [running, setRunning] = useState<boolean>(initiallyRunning);
+  const [resting, setResting] = useState<boolean>(false);
+  const [paused, setPaused] = useState<boolean>(false);
   const [dates, setDates] = useState<Record<string, Date>>();
+  const [task, setTask] = useState<string>("");
 
   const tick = useCallback(
     () => {
@@ -47,9 +33,9 @@ export const useTimer = ({
   useEffect(() => {
     if (seconds) {
       const [formattedHours, formattedMinutes, formattedSeconds] = formatSeconds(seconds);
-      document.title = `Focado - ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+      document.title = `${task} - ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
-  }, [seconds])
+  }, [seconds, task])
 
   const start = (initial?: number) => {
     if (initial) {
@@ -64,14 +50,17 @@ export const useTimer = ({
       startedAt: new Date(),
     });
   };
+
   const pause = () => {
     setRunning(false);
     setPaused(true);
-  };
+  }
+
   const stopResting = () => {
     setResting(false);
     reset();
   }
+
   const reset = () => {
     setSeconds(0);
     setPaused(false);
@@ -80,12 +69,28 @@ export const useTimer = ({
     setResting(false);
     document.title = `Flowmodoro`;
   };
+
   const stop = () => {
     setDates({
       ...dates,
       stoppedAt: new Date(),
     })
   };
+
   useSecondsInterval(tick);
-  return { pause, reset, running, seconds, start, stop, paused, dates, resting, stopResting };
+
+  return {
+    running,
+    seconds,
+    paused,
+    dates,
+    resting,
+    task,
+    pause,
+    reset,
+    start,
+    stop,
+    stopResting,
+    setTask,
+  };
 };

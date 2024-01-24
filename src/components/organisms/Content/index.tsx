@@ -7,7 +7,9 @@ export const Content = () => {
 
   return (
     <TimerContext.Provider value={timer}>
-      <Card />
+      <div className="mt-44">
+        <Card />
+      </div>
     </TimerContext.Provider>
   )
 }

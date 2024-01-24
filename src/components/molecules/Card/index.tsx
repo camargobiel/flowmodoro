@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { FinishCard, TimerCard } from "@/components";
+import { FinishCard, Task, TimerCard } from "@/components";
 import { TimerContext } from "@/context";
 
 const TEN_PERCENT = 0.1;
@@ -26,7 +26,8 @@ export const Card = () => {
   }, [dates?.stoppedAt, seconds, reset, resting, stopResting])
 
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex items-center justify-center flex-col'>
+      <Task />
       {
         restTime > 0 ? (
           <FinishCard

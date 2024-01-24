@@ -7,6 +7,7 @@ export const ButtonGroup = () => {
   const {
     running,
     seconds,
+    task,
     pause,
     stop,
     start,
@@ -19,7 +20,8 @@ export const ButtonGroup = () => {
         <Button
           onClick={() => start()}
           icon={<PlayIcon width={20}/>}
-          variant="bg-indigo-600 hover:bg-indigo-700"
+          variant={!task ? "bg-indigo-500 cursor-not-allowed" :"bg-indigo-600 hover:bg-indigo-700"}
+          disabled={!task}
         >
           {seconds ? "Voltar" : "Começar"}
         </Button>
